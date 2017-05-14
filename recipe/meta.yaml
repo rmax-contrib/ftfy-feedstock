@@ -1,6 +1,6 @@
 {% set name = "ftfy" %}
-{% set version = "4.4.2" %}
-{% set sha256sum = "0d82c3c7550d030c0b0e833f9b4d2a3c54873f7a934eec9913694977e3fb165f" %}
+{% set version = "5.1" %}
+{% set sha256sum = "2db945e2b46ef975cb9edbb897504df3bfd8f48f2be94297a3d4b7e906741ddf" %}
 
 package:
   name: {{ name }}
@@ -14,6 +14,7 @@ source:
 build:
   number: 0
   script: python setup.py install --single-version-externally-managed --record=record.txt
+  skip: True  # [py2k]
   entry_points:
     - ftfy = ftfy.cli:main
 
@@ -26,20 +27,17 @@ requirements:
     - python
     # Required for loading package data via `pkg_resources` module.
     - setuptools
-    - html5lib
     - wcwidth
 
 test:
-  imports:
-    - ftfy
-    - ftfy.build_data
-    - ftfy.chardata
-    - ftfy.cli
-    - ftfy.fixes
-    - ftfy.formatting
-
+  requires:
+    - nose
+  source_files:
+    - tests
   commands:
-    - ftfy -h
+    - nosetests -v tests  # [unix]
+    # CLI tests fail on windows.
+    - nosetests -v -e test_cli tests  # [win]
 
 about:
   home: https://github.com/LuminosoInsight/python-ftfy/
