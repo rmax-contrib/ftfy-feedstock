@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256sum }}
 
 build:
-  number: 0
+  number: 1
   script: python setup.py install --single-version-externally-managed --record=record.txt
   skip: True  # [py2k]
   entry_points:
@@ -35,9 +35,8 @@ test:
   source_files:
     - tests
   commands:
-    - nosetests -v tests  # [unix]
-    # CLI tests fail on windows.
-    - nosetests -v -e test_cli tests  # [win]
+    - PYTHONIOENCODING=utf8 ftfy tests/halibote.txt  # [unix]
+    - SET "PYTHONIOENCODING=utf8" & ftfy tests/halibote.txt  # [win]
 
 about:
   home: https://github.com/LuminosoInsight/python-ftfy/
