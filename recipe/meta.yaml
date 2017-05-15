@@ -10,6 +10,8 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256sum }}
+  patches:
+    - tests-fix-linesep.patch
 
 build:
   number: 1
@@ -35,8 +37,8 @@ test:
   source_files:
     - tests
   commands:
-    - PYTHONIOENCODING=utf8 ftfy tests/halibote.txt  # [unix]
-    - SET "PYTHONIOENCODING=utf8" & ftfy tests/halibote.txt  # [win]
+    - PYTHONIOENCODING=utf8 nosetests -v tests  # [unix]
+    - SET "PYTHONIOENCODING=utf8" & nosetests -v tests  # [win]
 
 about:
   home: https://github.com/LuminosoInsight/python-ftfy/
