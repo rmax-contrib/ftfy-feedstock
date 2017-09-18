@@ -1,6 +1,6 @@
 {% set name = "ftfy" %}
-{% set version = "5.1" %}
-{% set sha256sum = "2db945e2b46ef975cb9edbb897504df3bfd8f48f2be94297a3d4b7e906741ddf" %}
+{% set version = "5.1.1" %}
+{% set sha256sum = "67a29a2fad5f72aec2d8a0a7084e4f499ed040455133ee96b1c458609fc29e78" %}
 
 package:
   name: {{ name }}
